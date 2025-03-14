@@ -10,38 +10,41 @@
 </head>
 <body style = "background-color: #0a0a0a;">
 
-<header class="row">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
-                <div class="container-fluid">
-<img class="rounded-circle" width = "100px" height = "100px" src="<?php echo get_template_directory_uri(); ?>/img/DALL·E 2025-03-08 15.13.13 - A minimalist vinyl record logo with red lines on a black background. The vinyl record is simple, with a circular shape and grooves represented by slee.webp" alt="Logo vinilo">
-                    <a class="navbar-brand text-danger" href="#"><?php bloginfo('name'); ?></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
-                    aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-                            <li class="nav-item">
-                                <a class="nav-link link-danger" href="#"><?php wp_nav_menu(array('theme_location' => 'header')); ?></a>
-                            </li>
-                            <li>                
-                                <?php if (is_user_logged_in() == false){?>
-                                    <a class = "link-danger" href="<?php echo wp_registration_url(); ?>">Regístrate</a>
-                              <?php }else{ ?>
-                             
-                        
-                                    <a class = "link-danger" href="<?php echo wp_logout_url('http://localhost/wordpress/index.php/inicio/'); ?>">Cerrar sesión</a>
-                             
-                                <?php }?>
-                            </li>
-                        </ul>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-danger" type="submit">Buscar</button>
-                        </form>
-                    </div>
-                </div>
-            </nav>
-        </header>
+
+<nav class="navbar navbar-expand-md navbar-light bg-danger pt-5 pb-5">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-3 text-light" href="#"><?php bloginfo('name'); ?></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-menu" aria-controls="main-menu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse ms-3" id="main-menu">
+            <?php
+            wp_nav_menu(array(
+                'theme_location' => 'main-menu',
+                'container' => false,
+                'menu_class' => '',
+                'fallback_cb' => '__return_false',
+                'items_wrap' => '<ul id="%1$s" class="navbar-nav me-auto mb-2 mb-md-0 %2$s">%3$s</ul>',
+                'depth' => 2,
+                'walker' => new bootstrap_5_wp_nav_menu_walker()
+            ));
+            ?>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-light" type="submit">Buscar</button>
+            </form>
+            <button class="btn btn-outline-light me-3 ms-5">
+            <?php if (is_user_logged_in() == false){?>
+            <a class = "link-light" href="<?php echo wp_registration_url(); ?>">Regístrate</a>
+            <?php }else{ ?>
+                <a class = "link-light" href="<?php echo wp_logout_url('http://localhost/wordpress/index.php/inicio/'); ?>">Cerrar sesión</a>
+            <?php }?>
+            </button>
+        </div>
+    </div>
+</nav>
+
+<br>
+

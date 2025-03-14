@@ -1,5 +1,6 @@
 <br>
-<footer class = "text-danger pb-3">
+<br>
+<footer class = "text-light bg-danger pt-4 pb-4">
     <h4>
 <?php bloginfo('name'); ?>
 </h4>
