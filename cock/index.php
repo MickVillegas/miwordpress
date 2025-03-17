@@ -142,6 +142,7 @@ else if(is_page('Tienda')){?>
     </div>
 <!--Si no es ninguna de las paginas anteriores significa que se quiere acceder al contenido de un post-->  
 <?php } else{?>
+    <!--Crea una seccion con el titulo de la pagina actual con get_title()-->
     <div class = "row">
         <div class = "col-md-5 me-3 ms-5" style = "background-color: #212121;">
             <header>
@@ -152,8 +153,11 @@ else if(is_page('Tienda')){?>
             </div>
         </div>
         <div class = "col-md-5 text-danger me-3 ms-3" style = "background-color: #212121;">
-            <?php $post_nombre = the_title(); // ID del post
+            <!--Obtiene el titulo del post para hacer una consulta a la base de datos-->
+            <?php $post_nombre = the_title(); 
+            //busca las categorias asociadas al post 
             $categories = get_the_category($post_nombre);
+            //si la variable no está vacía significa que el post tiene categorías, recorre cada una de sus categoría y hace una lista con las categorias del post
             if (!empty($categories)) {
                 echo "<p>Categorías de la entrada:</p><ul>";
                 foreach ($categories as $category) {
@@ -166,27 +170,32 @@ else if(is_page('Tienda')){?>
 
 <br>
 <?php
-
+    //comprueba que el usuario esté registrado con is_user_logged_in(), si no lo está (es falso) no aparecerá la caja de comentarios, pero si un enlace que lo lleva a la página para registrarse o iniciar sesion  
     if (is_user_logged_in() == false){?>
         <a class = "link-danger" href="<?php echo wp_registration_url(); ?>">Regístrate para comentar</a>
     <?php }else{ 
-
-        if (comments_open()) { // Verifica si los comentarios están habilitados
-            comments_template(); // Muestra solo el formulario de comentarios
+        //si está registrado verifica si los comentarios están habilitados con comments_open() y muestra la caja de comentarios con comments_template()
+        if (comments_open()) { 
+            comments_template(); 
         }
     }
     ?>
     <br>
+    <!--Hago una consulta con el titulo de la página para obtener el número total de comentarios hechos con get_comments_number()-->
     <?php $post_nombre = the_title();
     echo "<h2 class = 'text-danger'>Comentarios(" . get_comments_number($post_nombre) . ")</h2><br><br>";
+   //hago una consulta haciendo uso del nombre del titulo del post para obtener los comentarios
     $comments;
     $post_nombre = the_title();
+    //si el numero total de comentarios es distinto a 0 significa que hay comentarios, obtengo los comentarios con get_comments() y le paso un array por parametros con las condiciones de la consulta
+    //donde lepaso la id del post para obtener los comentarios de la entrada, solo mostrará comentarios aprobados y el orden como los muestra será ascendente 
     if(get_comments_number($post_nombre) != 0){
         $comments = get_comments(array(
-        'post_id' => $post_nombre, // Obtener comentarios de esta entrada
-        'status'  => 'approve', // Solo comentarios aprobados
-        'order'   => 'ASC' // Orden ascendente (del más antiguo al más nuevo)
+        'post_id' => $post_nombre, 
+        'status'  => 'approve', 
+        'order'   => 'ASC'
     ));
+    //si exsisten los comentarios los recorro y los pinto
     if ($comments) {
         foreach ($comments as $comment) {
             echo "<div class = 'text-danger'><p><h3>" . $comment->comment_author . "</h3><br></strong>" . $comment->comment_content . "</p><hr></div>";

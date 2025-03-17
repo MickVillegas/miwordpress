@@ -40,8 +40,8 @@
                 <button class="btn btn-outline-light" type="submit">Buscar</button>
             </form>
             <button class="btn btn-outline-light me-3 ms-5">
-            <!--Link para cerrar o iniciar sesion, donde si el usuario está registrado, se mostrará el enlace cerrar sesion-->
-            <!--Si el usuario no ha iniciado sesion se mostrará el link para que cree una cuenta nueva o inicie sesion-->
+            <!--comprueba si el usuario a iniciado sesion con is_user_logged_in(), donde si el usuario está registrado (true) se mostrará el enlace cerrar sesion con wp_logout_url(link de redireccion)-->
+            <!--Si el usuario no ha iniciado sesion (false) se mostrará el link para que cree una cuenta nueva o inicie sesion con wp_registration_url()-->
             <?php if (is_user_logged_in() == false){?>
             <a class = "link-light" href="<?php echo wp_registration_url(); ?>">Regístrate</a>
             <?php }else{ ?>
