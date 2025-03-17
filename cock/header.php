@@ -10,7 +10,7 @@
 </head>
 <body style = "background-color: #0a0a0a;">
 
-
+<!--El navbar de la web, que pinta el nombre de la web con bloginfo('name')-->
 
 <nav class="navbar navbar-expand-md navbar-light bg-danger pt-5 pb-5">
     <div class="container-fluid">
@@ -20,6 +20,9 @@
         </button>
         
         <div class="collapse navbar-collapse ms-3" id="main-menu">
+
+            <!--Crea los enlaces a las distintas páginas y categorias creadas en wordpress-->
+
             <?php
             wp_nav_menu(array(
                 'theme_location' => 'main-menu',
@@ -31,11 +34,14 @@
                 'walker' => new bootstrap_5_wp_nav_menu_walker()
             ));
             ?>
+            <!--La barra de busqueda con su boton buscar-->
             <form class="d-flex" role="search">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-light" type="submit">Buscar</button>
             </form>
             <button class="btn btn-outline-light me-3 ms-5">
+            <!--Link para cerrar o iniciar sesion, donde si el usuario está registrado, se mostrará el enlace cerrar sesion-->
+            <!--Si el usuario no ha iniciado sesion se mostrará el link para que cree una cuenta nueva o inicie sesion-->
             <?php if (is_user_logged_in() == false){?>
             <a class = "link-light" href="<?php echo wp_registration_url(); ?>">Regístrate</a>
             <?php }else{ ?>

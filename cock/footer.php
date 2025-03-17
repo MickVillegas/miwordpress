@@ -1,5 +1,6 @@
 <br>
 <br>
+<!--El footer de la web, el cual contiene el nombre de la web-->
 <footer class = "text-light bg-danger pt-4 pb-4">
     <h4>
 <?php bloginfo('name'); ?>

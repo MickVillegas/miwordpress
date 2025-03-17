@@ -1,7 +1,9 @@
-
+<!--Obtiene la cabecera creada en header.php-->
 <?php get_header();?>
 
+<!--Si la pagina actual es la de inicio hace lo siguiente-->
 <?php if(is_page('Inicio')){?>
+    <!--Crea un carrusel sin botones con 3 imagenes-->
     <div class="container-fluid">
         <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -17,7 +19,7 @@
             </div>
         </div>
     </div>
-
+    <!--Crea una seccion donde aparece el titulo de la pagina actual con get_title() y una linea-->
     <div class="container">
         <section class="row">
             <div class="p-5 rounded-lg m-3 bg-danger text-light">
@@ -28,15 +30,19 @@
         </section>
     </div>
    
+    <!--Crea otra seccion pero mostrando las entradas creadas en columnas-->
     <section class="me-5 ms-5" style = "background-color:rgb(122, 122, 122);">
         <header class="row">
         </header>
         <section class="row d-flex justify-content-center">
         <?php
-            $post_id = 0; // ID del post que deseas obtener
+        //post_id será usado para obtener las id de los posts
+            $post_id = 0; 
+            //mientras post_id sea menor que 20 obtendrá un post con la id actual con get_post
             while($post_id < 20){
                 $post = get_post($post_id);
                 if($post){
+                    //si el post obtenido es de tipo post lo muestra, obteniendo su titulo (post_title), obteniendo su contenido (post_content) y obtiene el link del post con get_permalink al que se le asociará un boton
                     if ($post->post_type == 'post') {
                         echo '<article class="border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
                                 <div class="caption">';
@@ -48,13 +54,16 @@
                             </article>";
                     }
                 }
+                //post_id aumenta un numero más que será usado para volver a buscar un popst con la nueva id que guarda esta variable
                 $post_id = $post_id + 1;
         }?>
         </section>
         </section>
 
+<!--Si la pagina es contactanos-->
 <?php }        
  else if(is_page('Contactanos')){?>
+    <!--Crea una seccion con el titulo de la pagina actual con get_title()-->
     <div class="container">
         <section class="row">
             <div style = "background-color:rgb(68, 68, 68);" class="p-5 rounded-lg m-3 text-danger">
@@ -63,7 +72,7 @@
                 <hr class="my-4">
             </div>
         </section>
-
+        <!--Y crea un formulario donde el usuario debe poner nombre, apellidos, su correo y el mensaje que quiere mandar-->
         <section class="container" style = "background-color:rgb(68, 68, 68);">
             <header class="row">
             </header>
@@ -93,8 +102,9 @@
         </section>
     </div>
 <?php }
-
+//Si la página es Tienda
 else if(is_page('Tienda')){?>
+    <!--Crea una seccion con el titulo de la pagina actual con get_title()-->
     <div class = "container">
     <section class="row">
         <div style = "background-color:rgb(68, 68, 68);" class="p-5 rounded-lg m-3 text-danger">
@@ -106,9 +116,12 @@ else if(is_page('Tienda')){?>
 
     <section class="row d-flex justify-content-center" style = "background-color:rgb(68, 68, 68);">
     <?php
-        $post_id = 0; // ID del post que deseas obtener
+    //post_id será usado para obtener las id de los posts
+        $post_id = 0;
+        //mientras post_id sea menor que 20 obtendrá un post con la id actual con get_post
         while($post_id < 20){
             $post = get_post($post_id);
+            //si el post obtenido es de tipo post lo muestra, obteniendo su titulo (post_title), obteniendo su contenido (post_content) y obtiene el link del post con get_permalink al que se le asociará un boton
             if($post){
                 if ($post->post_type == 'post') {
                 echo '<article class="border border-light text-danger bg-dark col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
@@ -121,12 +134,13 @@ else if(is_page('Tienda')){?>
                 </article>";
                 }
             }
+            //post_id aumenta un numero más que será usado para volver a buscar un popst con la nueva id que guarda esta variable
             $post_id = $post_id + 1;
         }
     ?>
     </section>
     </div>
-            
+<!--Si no es ninguna de las paginas anteriores significa que se quiere acceder al contenido de un post-->  
 <?php } else{?>
     <div class = "row">
         <div class = "col-md-5 me-3 ms-5" style = "background-color: #212121;">
@@ -186,5 +200,5 @@ else if(is_page('Tienda')){?>
 
 <br>
 <br>
-
+<!--Obtiene el footer creado en footer.php-->
 <?php get_footer();?>
