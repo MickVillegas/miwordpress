@@ -29,6 +29,8 @@
             </div>
         </section>
     </div>
+
+
    
     <!--Crea otra seccion pero mostrando las entradas creadas en columnas-->
     <section class="me-5 ms-5" style = "background-color:rgb(122, 122, 122);">
@@ -47,7 +49,10 @@
                         echo '<article class="border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
                                 <div class="caption">';
                                     echo '<h2 class="text-center">' . $post->post_title . '</h2>';
-                                    echo '<p class="text-start">' . $post->post_content . '</p>';
+                                    if(has_post_thumbnail()){
+                                        the_post_thumbnail('full');
+                                    }
+                                    echo '<p class="text-start">' . substr(the_excerpt(), 0, 200) . '</p>';
                                     $post_link = get_permalink($post_id);
                                     echo "<p><a href='$post_link' class='btn btn-outline-danger'>Leer más</a></p>
                                 </div>
@@ -114,6 +119,27 @@ else if(is_page('Tienda')){?>
         </div>
     </section>
 
+    <?php
+$query = new WP_Query(array('post_type' => 'post'));
+if ($query->have_posts()) :
+    while ($query->have_posts()) : $query->the_post();?>
+      <h3 class = "bg-danger"><?php the_title(); ?></h3>
+      <?php                        
+      if(has_post_thumbnail()){                    
+        the_post_thumbnail('full');
+        }?>
+        <div class = "text-danger">
+        <p><?php substr(the_excerpt(), 0, 200)?></p>
+        </div>
+        <p><a href= <?php get_permalink();?> class='btn btn-outline-danger'>Leer más</a></p>
+        <?php
+    endwhile;
+    wp_reset_postdata();
+else :
+    _e('No hay entradas disponibles.', 'IES Celia Viñas');
+endif;
+?>
+
     <section class="row d-flex justify-content-center" style = "background-color:rgb(68, 68, 68);">
     <?php
     //post_id será usado para obtener las id de los posts
@@ -123,11 +149,19 @@ else if(is_page('Tienda')){?>
             $post = get_post($post_id);
             //si el post obtenido es de tipo post lo muestra, obteniendo su titulo (post_title), obteniendo su contenido (post_content) y obtiene el link del post con get_permalink al que se le asociará un boton
             if($post){
-                if ($post->post_type == 'post') {
-                echo '<article class="border border-light text-danger bg-dark col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
-                    <div class="caption">';
-                        echo '<h2 class="text-center">' . $post->post_title . '</h2>';
-                        echo '<p class="text-start">' . $post->post_content . '</p>'; 
+                if ($post->post_type == 'post') {?>
+                   <article class="border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
+                    <div class="caption">
+                       <h2 class="text-center"> <?php the_title();?></h2>
+                       <?php
+                        if(has_post_thumbnail()){
+                        the_post_thumbnail('full');
+                        }
+                       ?>
+
+                        <p class="text-start"> <?php substr(the_excerpt(), 0, 200)?></p>
+
+                        <?php 
                         $post_link = get_permalink($post_id);
                         echo "<p><a href='$post_link' class='btn btn-outline-danger'>Leer más</a></p>
                     </div>
