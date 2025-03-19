@@ -32,38 +32,40 @@
 
 
    
-    <!--Crea otra seccion pero mostrando las entradas creadas en columnas-->
-    <section class="me-5 ms-5" style = "background-color:rgb(122, 122, 122);">
-        <header class="row">
-        </header>
-        <section class="row d-flex justify-content-center">
-        <?php
-        //post_id será usado para obtener las id de los posts
-            $post_id = 0; 
-            //mientras post_id sea menor que 20 obtendrá un post con la id actual con get_post
-            while($post_id < 20){
-                $post = get_post($post_id);
-                if($post){
-                    //si el post obtenido es de tipo post lo muestra, obteniendo su titulo (post_title), obteniendo su contenido (post_content) y obtiene el link del post con get_permalink al que se le asociará un boton
-                    if ($post->post_type == 'post') {
-                        echo '<article class="border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
-                                <div class="caption">';
-                                    echo '<h2 class="text-center">' . $post->post_title . '</h2>';
-                                    if(has_post_thumbnail()){
-                                        the_post_thumbnail('full');
-                                    }
-                                    echo '<p class="text-start">' . substr(the_excerpt(), 0, 200) . '</p>';
-                                    $post_link = get_permalink($post_id);
-                                    echo "<p><a href='$post_link' class='btn btn-outline-danger'>Leer más</a></p>
-                                </div>
-                            </article>";
-                    }
-                }
-                //post_id aumenta un numero más que será usado para volver a buscar un popst con la nueva id que guarda esta variable
-                $post_id = $post_id + 1;
-        }?>
-        </section>
-        </section>
+    <!--Seccion para mostrar los posts-->
+    <section class="row d-flex justify-content-center" style = "background-color:rgb(68, 68, 68);">
+    <?php
+    //he hecho uso de una consulta para que me traiga todos aquellos posts que sean de tipo post, ya que en phpMyAdmin las paginas y los posts se guardan bajo la misma tabla
+    $query = new WP_Query(array('post_type' => 'post'));
+        //entonces en el if y en el while le digo que si hay posts y mientras hayan posts que me de el post actual ($query->the_post())
+        if ($query->have_posts()) :
+            while ($query->have_posts()) : $query->the_post();?>
+                <article class="border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
+                    <!--Uso el titulo del post actual para ponerlo como cabecero-->
+                    <h3 class = "text-danger text-center"><?php the_title(); ?></h3>
+                    <?php        
+                    //si el post tiene imagenes destacadas me los muestra con su tamaño completo, mis imagenes miden 200x200 px                
+                    if(has_post_thumbnail()){                    
+                        the_post_thumbnail('full');
+                    }?>
+                    <!--Con substr puedo conseguir que no me muestre todo el contenido del post-->
+                    <div class = "text-danger">
+                        <p><?php substr(the_excerpt(), 0, 200)?></p>
+                    </div>
+                    <?php 
+                    //obtengo la id del post actual para poder tener un link directo al post y su contenido con get_permalink(the_ID()), la variable lo uso para el boton, ya que al pulsarlo nos llevará a la página del post
+                    $id_post = get_permalink(the_ID());
+                    echo "<p><a href='$id_post' class='btn btn-outline-danger'>Leer más</a></p>"
+                    ?>
+                </article>
+            <?php
+            endwhile;
+            wp_reset_postdata();
+else :
+    _e('No hay entradas disponibles.', 'IES Celia Viñas');
+endif;
+?>
+</section>
 
 <!--Si la pagina es contactanos-->
 <?php }        
@@ -118,61 +120,41 @@ else if(is_page('Tienda')){?>
             <hr class="my-4">
         </div>
     </section>
-
+<!--Seccion para mostrar los posts-->
+    <section class="row d-flex justify-content-center" style = "background-color:rgb(68, 68, 68);">
     <?php
-$query = new WP_Query(array('post_type' => 'post'));
-if ($query->have_posts()) :
-    while ($query->have_posts()) : $query->the_post();?>
-      <h3 class = "bg-danger"><?php the_title(); ?></h3>
-      <?php                        
-      if(has_post_thumbnail()){                    
-        the_post_thumbnail('full');
-        }?>
-        <div class = "text-danger">
-        <p><?php substr(the_excerpt(), 0, 200)?></p>
-        </div>
-        <p><a href= <?php get_permalink();?> class='btn btn-outline-danger'>Leer más</a></p>
-        <?php
-    endwhile;
-    wp_reset_postdata();
+    //he hecho uso de una consulta para que me traiga todos aquellos posts que sean de tipo post, ya que en phpMyAdmin las paginas y los posts se guardan bajo la misma tabla
+    $query = new WP_Query(array('post_type' => 'post'));
+        //entonces en el if y en el while le digo que si hay posts y mientras hayan posts que me de el post actual ($query->the_post())
+        if ($query->have_posts()) :
+            while ($query->have_posts()) : $query->the_post();?>
+                <article class="border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
+                    <!--Uso el titulo del post actual para ponerlo como cabecero-->
+                    <h3 class = "text-danger text-center"><?php the_title(); ?></h3>
+                    <?php        
+                    //si el post tiene imagenes destacadas me los muestra con su tamaño completo, mis imagenes miden 200x200 px                
+                    if(has_post_thumbnail()){                    
+                        the_post_thumbnail('full');
+                    }?>
+                    <!--Con substr puedo conseguir que no me muestre todo el contenido del post-->
+                    <div class = "text-danger">
+                        <p><?php substr(the_excerpt(), 0, 200)?></p>
+                    </div>
+                    <?php 
+                    //obtengo la id del post actual para poder tener un link directo al post y su contenido con get_permalink(the_ID()), la variable lo uso para el boton, ya que al pulsarlo nos llevará a la página del post
+                    $id_post = get_permalink(the_ID());
+                    echo "<p><a href='$id_post' class='btn btn-outline-danger'>Leer más</a></p>"
+                    ?>
+                </article>
+            <?php
+            endwhile;
+            wp_reset_postdata();
 else :
     _e('No hay entradas disponibles.', 'IES Celia Viñas');
 endif;
 ?>
-
-    <section class="row d-flex justify-content-center" style = "background-color:rgb(68, 68, 68);">
-    <?php
-    //post_id será usado para obtener las id de los posts
-        $post_id = 0;
-        //mientras post_id sea menor que 20 obtendrá un post con la id actual con get_post
-        while($post_id < 20){
-            $post = get_post($post_id);
-            //si el post obtenido es de tipo post lo muestra, obteniendo su titulo (post_title), obteniendo su contenido (post_content) y obtiene el link del post con get_permalink al que se le asociará un boton
-            if($post){
-                if ($post->post_type == 'post') {?>
-                   <article class="border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
-                    <div class="caption">
-                       <h2 class="text-center"> <?php the_title();?></h2>
-                       <?php
-                        if(has_post_thumbnail()){
-                        the_post_thumbnail('full');
-                        }
-                       ?>
-
-                        <p class="text-start"> <?php substr(the_excerpt(), 0, 200)?></p>
-
-                        <?php 
-                        $post_link = get_permalink($post_id);
-                        echo "<p><a href='$post_link' class='btn btn-outline-danger'>Leer más</a></p>
-                    </div>
-                </article>";
-                }
-            }
-            //post_id aumenta un numero más que será usado para volver a buscar un popst con la nueva id que guarda esta variable
-            $post_id = $post_id + 1;
-        }
-    ?>
-    </section>
+</section>
+   
     </div>
 <!--Si no es ninguna de las paginas anteriores significa que se quiere acceder al contenido de un post-->  
 <?php } else{?>
@@ -216,16 +198,16 @@ endif;
     ?>
     <br>
     <!--Hago una consulta con el titulo de la página para obtener el número total de comentarios hechos con get_comments_number()-->
-    <?php $post_nombre = the_title();
-    echo "<h2 class = 'text-danger'>Comentarios(" . get_comments_number($post_nombre) . ")</h2><br><br>";
+    <?php 
+    echo "<h2 class = 'text-danger'>Comentarios(" . get_comments_number(the_ID()) . ")</h2><br><br>";
    //hago una consulta haciendo uso del nombre del titulo del post para obtener los comentarios
     $comments;
-    $post_nombre = the_title();
+
     //si el numero total de comentarios es distinto a 0 significa que hay comentarios, obtengo los comentarios con get_comments() y le paso un array por parametros con las condiciones de la consulta
     //donde lepaso la id del post para obtener los comentarios de la entrada, solo mostrará comentarios aprobados y el orden como los muestra será ascendente 
-    if(get_comments_number($post_nombre) != 0){
+    if(get_comments_number(the_ID()) != 0){
         $comments = get_comments(array(
-        'post_id' => $post_nombre, 
+        'post_id' => the_ID(), 
         'status'  => 'approve', 
         'order'   => 'ASC'
     ));
