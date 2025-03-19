@@ -40,24 +40,28 @@
         //entonces en el if y en el while le digo que si hay posts y mientras hayan posts que me de el post actual ($query->the_post())
         if ($query->have_posts()) :
             while ($query->have_posts()) : $query->the_post();?>
-                <article class="border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
-                    <!--Uso el titulo del post actual para ponerlo como cabecero-->
-                    <h3 class = "text-danger text-center"><?php the_title(); ?></h3>
-                    <?php        
-                    //si el post tiene imagenes destacadas me los muestra con su tamaño completo, mis imagenes miden 200x200 px                
+
+            <div class="card col-md-3 border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5" style="width: 18rem;">
+                <?php
+                //si el post tiene imagenes destacadas me los muestra con su tamaño completo, mis imagenes miden 200x200 px
                     if(has_post_thumbnail()){                    
                         the_post_thumbnail('full');
                     }?>
+                <div class="card-body">
+                    <!--Uso el titulo del post actual para ponerlo como cabecero-->
+                    <h5 class="card-title text-center"><?php the_title(); ?></h5>
+                    <hr>
                     <!--Con substr puedo conseguir que no me muestre todo el contenido del post-->
-                    <div class = "text-danger">
-                        <p><?php substr(the_excerpt(), 0, 200)?></p>
-                    </div>
+                    <p class="card-text"><?php substr(the_excerpt(), 0, 200)?></p>
                     <?php 
+                    echo "<div hidden>";
                     //obtengo la id del post actual para poder tener un link directo al post y su contenido con get_permalink(the_ID()), la variable lo uso para el boton, ya que al pulsarlo nos llevará a la página del post
                     $id_post = get_permalink(the_ID());
-                    echo "<p><a href='$id_post' class='btn btn-outline-danger'>Leer más</a></p>"
+                    echo "</div>";
+                    echo "<br><a href='$id_post' class='btn btn-outline-danger mb-3'>Leer más</a>"
                     ?>
-                </article>
+                </div>
+            </div>
             <?php
             endwhile;
             wp_reset_postdata();
@@ -134,24 +138,27 @@ else if(is_page('Tienda')){?>
         //entonces en el if y en el while le digo que si hay posts y mientras hayan posts que me de el post actual ($query->the_post())
         if ($query->have_posts()) :
             while ($query->have_posts()) : $query->the_post();?>
-                <article class="border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5">
-                    <!--Uso el titulo del post actual para ponerlo como cabecero-->
-                    <h3 class = "text-danger text-center"><?php the_title(); ?></h3>
-                    <?php        
-                    //si el post tiene imagenes destacadas me los muestra con su tamaño completo, mis imagenes miden 200x200 px                
+                            <div class="card col-md-3 border border-light bg-dark text-danger col-md-3 me-5 ms-5 pe-5 ps-5 pt-3 mt-5 mb-5" style="width: 18rem;">
+                <?php
+                //si el post tiene imagenes destacadas me los muestra con su tamaño completo, mis imagenes miden 200x200 px
                     if(has_post_thumbnail()){                    
                         the_post_thumbnail('full');
                     }?>
+                <div class="card-body">
+                    <!--Uso el titulo del post actual para ponerlo como cabecero-->
+                    <h5 class="card-title text-center"><?php the_title(); ?></h5>
+                    <hr>
                     <!--Con substr puedo conseguir que no me muestre todo el contenido del post-->
-                    <div class = "text-danger">
-                        <p><?php substr(the_excerpt(), 0, 200)?></p>
-                    </div>
+                    <p class="card-text"><?php substr(the_excerpt(), 0, 200)?></p>
                     <?php 
+                    echo "<div hidden>";
                     //obtengo la id del post actual para poder tener un link directo al post y su contenido con get_permalink(the_ID()), la variable lo uso para el boton, ya que al pulsarlo nos llevará a la página del post
                     $id_post = get_permalink(the_ID());
-                    echo "<p><a href='$id_post' class='btn btn-outline-danger'>Leer más</a></p>"
+                    echo "</div>";
+                    echo "<br><a href='$id_post' class='btn btn-outline-danger mb-3'>Leer más</a>"
                     ?>
-                </article>
+                </div>
+            </div>
             <?php
             endwhile;
             wp_reset_postdata();

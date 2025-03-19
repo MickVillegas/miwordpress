@@ -9,7 +9,7 @@ if (comments_open()) :
           
             
             <p class="comment-form-comment">
-                <textarea class = "form-control-lg" name="comment" id="comment" required="required"></textarea>
+                <textarea style = "width: 700px; height: 50px;" name="comment" id="comment" required="required"></textarea>
             </p>
             
             <p class="form-submit">
