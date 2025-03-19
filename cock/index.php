@@ -20,10 +20,10 @@
         </div>
     </div>
     <!--Crea una seccion donde aparece el titulo de la pagina actual con get_title() y una linea-->
-    <div class="container">
+    <div class="container mt-5">
         <section class="row">
             <div class="p-5 rounded-lg m-3 bg-danger text-light">
-                <h1 class="display-4"><?php the_title();?></h1>
+                <h1 class="display-4 fs-1"><?php the_title();?></h1>
                 <p class="lead">Lo más destacado</p>
                 <hr class="my-4">
             </div>
@@ -33,7 +33,7 @@
 
    
     <!--Seccion para mostrar los posts-->
-    <section class="row d-flex justify-content-center" style = "background-color:rgb(68, 68, 68);">
+    <section class="row d-flex justify-content-center mt-5" style = "background-color:rgb(68, 68, 68);">
     <?php
     //he hecho uso de una consulta para que me traiga todos aquellos posts que sean de tipo post, ya que en phpMyAdmin las paginas y los posts se guardan bajo la misma tabla
     $query = new WP_Query(array('post_type' => 'post'));
@@ -71,21 +71,24 @@ endif;
 <?php }        
  else if(is_page('Contactanos')){?>
     <!--Crea una seccion con el titulo de la pagina actual con get_title()-->
-    <div class="container">
+    <div class="container mt-5">
         <section class="row">
-            <div style = "background-color:rgb(68, 68, 68);" class="p-5 rounded-lg m-3 text-danger">
-                <h1 class="display-4"><?php the_title();?></h1>
+            <div class="p-5 rounded-lg m-3 text-light bg-danger">
+                <h1 class="display-4 fs-1"><?php the_title();?></h1>
                 <p class="lead">Envianos un mensaje</p>
                 <hr class="my-4">
             </div>
         </section>
+    </div>
         <!--Y crea un formulario donde el usuario debe poner nombre, apellidos, su correo y el mensaje que quiere mandar-->
-        <section class="container" style = "background-color:rgb(68, 68, 68);">
-            <header class="row">
-            </header>
-            <form class = "text-danger">
+        <section class="mt-5" style = "background-color:rgb(68, 68, 68);">
+            <form class = "text-danger pt-5 pb-5">
+            <div class="row border border-light pt-5 pb-5 pe-3 ps-3 me-5 ms-5" style = "background-color: #212121;">
+
+                <div class = "col-md-6">
                 <fieldset disabled>
-                    <legend>Escriba sus datos y la razon de su mensaje</legend>
+                    <legend class = "fs-3">Escriba sus datos</legend>
+                    <hr>
                     <div class="mb-3">
                         <label for="Nombre" class="form-label">Nombre:</label>
                         <input type="text" id="Nombre" class="form-control" placeholder="Nombre">
@@ -98,30 +101,33 @@ endif;
                         <label for="Correo" class="form-label">Correo Electronico:</label>
                         <input type="text" id="Correo" class="form-control" placeholder="@gmail.com">
                     </div>
+                    </div>
+                    <div class = "col-md-6">
                     <div class="mb-3">
-                        <label for="mensaje" class="form-label">Mensaje</label>
+                        <label for="mensaje" class="form-label fs-3">Mensaje</label>
                         <br>
                         <textarea style = "width: 600px; height: 350px;" id="mensaje"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-danger">Submit</button>
+                    </div>
                 </fieldset>
+                <button type="submit" class="btn btn-outline-danger btn-lg">Enviar</button>
+            </div>
             </form>
         </section>
-    </div>
 <?php }
 //Si la página es Tienda
 else if(is_page('Tienda')){?>
     <!--Crea una seccion con el titulo de la pagina actual con get_title()-->
-    <div class = "container">
+    <div class = "container mt-5">
     <section class="row">
-        <div style = "background-color:rgb(68, 68, 68);" class="p-5 rounded-lg m-3 text-danger">
-            <h1 class="display-4"><?php the_title();?></h1>
+        <div class="p-5 rounded-lg m-3 bg-danger text-light">
+            <h1 class="display-4 fs-1"><?php the_title();?></h1>
             <p class="lead">Encuentra cualquier vinilo de tu artista favorito</p>
             <hr class="my-4">
         </div>
     </section>
 <!--Seccion para mostrar los posts-->
-    <section class="row d-flex justify-content-center" style = "background-color:rgb(68, 68, 68);">
+    <section class="row d-flex justify-content-center mt-5" style = "background-color:rgb(68, 68, 68);">
     <?php
     //he hecho uso de una consulta para que me traiga todos aquellos posts que sean de tipo post, ya que en phpMyAdmin las paginas y los posts se guardan bajo la misma tabla
     $query = new WP_Query(array('post_type' => 'post'));
@@ -159,23 +165,25 @@ endif;
 <!--Si no es ninguna de las paginas anteriores significa que se quiere acceder al contenido de un post-->  
 <?php } else{?>
     <!--Crea una seccion con el titulo de la pagina actual con get_title()-->
-    <div class = "row">
-        <div class = "col-md-5 me-3 ms-5" style = "background-color: #212121;">
+    <div class = "row pt-5 pb-5 mt-5 mb-5" style = "background-color:rgb(68, 68, 68);">
+        <div class = "border border-light col-md-7 me-3 ms-5 pt-4 ps-3 pe-3" style = "background-color: #212121;">
             <header>
-                <h1 class="display-4 text-danger"><?php the_title();?></h1>
+                <h1 class="display-4 text-danger fs-1"><?php the_title();?></h1>
+                <hr>
             </header>
             <div class = "text-danger">
                 <p><?php the_content();?></p>
             </div>
         </div>
-        <div class = "col-md-5 text-danger me-3 ms-3" style = "background-color: #212121;">
+        <div class = "border border-light col-md-3 text-danger me-3 ms-3 pt-4 ps-3 pe-3" style = "background-color: #212121;">
             <!--Obtiene el titulo del post para hacer una consulta a la base de datos-->
+            <div class = "fs-4">
             <?php $post_nombre = the_title(); 
             //busca las categorias asociadas al post 
             $categories = get_the_category($post_nombre);
             //si la variable no está vacía significa que el post tiene categorías, recorre cada una de sus categoría y hace una lista con las categorias del post
             if (!empty($categories)) {
-                echo "<p>Categorías de la entrada:</p><ul>";
+                echo "<p>Categorías de la entrada:</p></div><ul>";
                 foreach ($categories as $category) {
                     echo "<li>" . $category->name . "</li>";
                 }
@@ -185,6 +193,8 @@ endif;
     </div>
 
 <br>
+
+<div class = "ms-5 me-5">
 <?php
     //comprueba que el usuario esté registrado con is_user_logged_in(), si no lo está (es falso) no aparecerá la caja de comentarios, pero si un enlace que lo lleva a la página para registrarse o iniciar sesion  
     if (is_user_logged_in() == false){?>
@@ -221,6 +231,7 @@ endif;
     }
     }
 ?>
+</div>
 <?php }?>
 
 <br>

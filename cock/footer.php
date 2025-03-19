@@ -1,11 +1,12 @@
 <br>
 <br>
 <!--El footer de la web, el cual contiene el nombre de la web-->
-<footer class = "text-light bg-danger pt-4 pb-4">
+<footer class = "text-light bg-danger pt-4 pb-4 ps-4">
     <h4>
 <?php bloginfo('name'); ?>
 </h4>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!--wp_footer() es un hook para imprir el código que WordPress necesita para agregar hojas de estilo y scripts al footer-->
+<?php wp_footer(); ?>
     </body>
 </html>

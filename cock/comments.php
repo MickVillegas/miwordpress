@@ -3,13 +3,13 @@
 if (comments_open()) :
     ?>
     <div id="respond" class="comment-respond">
-        <h3 id="reply-title" class="comment-reply-title text-danger"><?php echo 'Deja tu comentario'; ?></h3>
+        <h3 id="reply-title" class="comment-reply-title text-danger mb-5"><?php echo 'Deja tu comentario'; ?></h3>
         <!--Los comentarios se publicarán a wp-comments-post.php-->
         <form action="<?php echo site_url('/wp-comments-post.php'); ?>" method="post" id="commentform" class="comment-form">
           
             
             <p class="comment-form-comment">
-                <textarea name="comment" id="comment" required="required"></textarea>
+                <textarea class = "form-control-lg" name="comment" id="comment" required="required"></textarea>
             </p>
             
             <p class="form-submit">
